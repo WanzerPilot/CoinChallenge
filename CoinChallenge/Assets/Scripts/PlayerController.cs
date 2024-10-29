@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +12,9 @@ public class PlayerController : MonoBehaviour
     Vector3 inputDir;
     float currentVelocity;
     float smoothTime = 0.05f;
+
+    Collider[] result = new Collider[10];
+    [SerializeField] LayerMask _ground;
 
     [SerializeField] Animator animator;
 
@@ -62,25 +66,19 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(transform.position + (moveDir * Time.deltaTime));
 
         float targetRotation = cam.transform.eulerAngles.y;
+        smoothTime = inputDir.z != 0 ? 0.1f : 0.5f;
         float playerAnglesDamp = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref currentVelocity, smoothTime);
-        transform.rotation = Quaternion.Euler(0, playerAnglesDamp, 0);
+        if (!Input.GetMouseButton(0)) transform.rotation = Quaternion.Euler(0, playerAnglesDamp, 0);
     }
 
     void Jump()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
-        bool grounded = Physics.SphereCast(ray, 0.3f, 0.3f);
-        Debug.Log(grounded);
-        
-        //Debug.DrawRay(transform.position + Vector3.up * 0.05f, Vector3.down, Color.red, 0.1f);
+        int count = Physics.OverlapSphereNonAlloc(transform.position, 0.2f, result, _ground);
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && count > 0)
         {
-            Debug.Log("Player is jumping");
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
-
-
     }
 
 }
