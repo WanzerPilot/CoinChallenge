@@ -12,7 +12,10 @@ public class EnemyController : MonoBehaviour
     Vector3 target;
     [SerializeField] FieldOfView fovController;
     GameObject player { get { return fovController.playerRef; } }
-    [SerializeField] float maxDistance = 10;
+
+    [SerializeField] float attackRange = 1.5f; 
+    [SerializeField] int attackDamage = 1;
+   
 
     [SerializeField] MeshRenderer rend;
 
@@ -21,14 +24,17 @@ public class EnemyController : MonoBehaviour
     {
         get
         {
-            /*if (Vector3.Distance(transform.position, player.transform.position) > maxDistance)
-                return false;*/
-            Debug.Log(agent.pathStatus);
+
             if (agent.pathStatus != NavMeshPathStatus.PathComplete)
                 return false;
+
+            if (Vector3.Distance(agent.destination, player.transform.position) > fovController.radius) return false;
+            if (!playerHealthSystem.IsAlive) return false;
             return true;
         }
     }
+
+    HealthSystem playerHealthSystem;
 
     //Enemy detection
 
@@ -37,6 +43,8 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         UpdateDestination();
         StartCoroutine(PatrolCorout());
+
+        playerHealthSystem = player.GetComponent<HealthSystem>();
     }
 
 
@@ -55,7 +63,9 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
+        if (playerHealthSystem.IsAlive)
         StartCoroutine(ChaseCorout());
+
 
     }
 
@@ -66,11 +76,17 @@ public class EnemyController : MonoBehaviour
         do
         {
             agent.SetDestination(player.transform.position);
-            Debug.Log(player.transform.position);
             while (agent.pathPending)
             {
                 yield return null;
             }
+
+            if (agent.remainingDistance < attackRange)
+            {
+                Attack();
+                yield return new WaitForSeconds(1);
+            }
+
             yield return null;
         }
         while (chasePlayer);
@@ -93,5 +109,10 @@ public class EnemyController : MonoBehaviour
             waypointIndex = 0; //Retour au début du tableau
         }
 
+    }
+
+    void Attack()
+    {
+        playerHealthSystem.SetDamage(attackDamage);
     }
 }
