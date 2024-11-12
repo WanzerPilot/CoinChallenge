@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpHorizontalSpeed;
     [SerializeField] float jumpButtonGracePeriod;
 
+    [SerializeField] private Rigidbody rb;
+
     [SerializeField] Transform cameraTransform;
 
 
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
 
 
+    //Dash
 
 
     void Start()

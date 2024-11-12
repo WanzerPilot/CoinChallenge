@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
 {
     //Enemy movements
     NavMeshAgent agent;
-    public Transform[] waypoints; //Tableau de waypoints
+ 
     int waypointIndex; //Index où sont choisis les waypoints
     Vector3 target;
     [SerializeField] FieldOfView fovController;
@@ -18,6 +18,10 @@ public class EnemyController : MonoBehaviour
    
 
     [SerializeField] MeshRenderer rend;
+
+    public static List<EnemyController> enemyList;
+
+    public WaypointGroup refWaypointGroup;
 
 
     bool chasePlayer
@@ -42,9 +46,21 @@ public class EnemyController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         UpdateDestination();
-        StartCoroutine(PatrolCorout());
+        SetNewAffectation(refWaypointGroup);
 
         playerHealthSystem = player.GetComponent<HealthSystem>();
+    }
+
+    private void OnEnable()
+    {
+        if (enemyList == null) enemyList = new List<EnemyController>();
+        enemyList.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        if (enemyList == null) enemyList = new List<EnemyController>();
+        enemyList.Remove(this);
     }
 
 
@@ -55,7 +71,7 @@ public class EnemyController : MonoBehaviour
         while (!fovController.playerDetected)
         {
             //Si la distance entre l'agent et la cible (waypoint) est à moins d'un mètre ->
-            if (Vector3.Distance(transform.position, target) < 1)
+            if (Vector3.Distance(transform.position, target) < agent.stoppingDistance + 0.1f)
             {
                 IterateWaypointIndex();
                 UpdateDestination();
@@ -96,7 +112,7 @@ public class EnemyController : MonoBehaviour
 
     void UpdateDestination()
     {
-        target = waypoints[waypointIndex].position; //update la destination du waypoint suivant à partir de la positon en cours
+        target = refWaypointGroup.waypointsList[waypointIndex].position; //update la destination du waypoint suivant à partir de la positon en cours
         agent.SetDestination(target); //déinit la cible à suivre
     }
 
@@ -104,7 +120,7 @@ public class EnemyController : MonoBehaviour
     {
         //Si la distance de la cible est à moins d'1 mètre, augmente l'index de waypoints par 1
         waypointIndex++;
-        if (waypointIndex == waypoints.Length) //Si l'index est egal au nombre de waypoints disponibles, retourne au début (0)
+        if (waypointIndex == refWaypointGroup.waypointsList.Count) //Si l'index est egal au nombre de waypoints disponibles, retourne au début (0)
         {
             waypointIndex = 0; //Retour au début du tableau
         }
@@ -114,5 +130,13 @@ public class EnemyController : MonoBehaviour
     void Attack()
     {
         playerHealthSystem.SetDamage(attackDamage);
+    }
+
+    public void SetNewAffectation(WaypointGroup waypointGroup)
+    {
+        StopAllCoroutines();
+        refWaypointGroup = waypointGroup;
+        waypointIndex = 0;
+        StartCoroutine(PatrolCorout());
     }
 }
