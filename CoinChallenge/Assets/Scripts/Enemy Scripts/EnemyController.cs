@@ -134,6 +134,7 @@ public class EnemyController : MonoBehaviour
 
     public void SetNewAffectation(WaypointGroup waypointGroup)
     {
+        if (!gameObject.activeSelf) return;
         StopAllCoroutines();
         refWaypointGroup = waypointGroup;
         waypointIndex = 0;

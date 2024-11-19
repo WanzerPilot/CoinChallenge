@@ -43,6 +43,7 @@ public class Sentinel : MonoBehaviour
 
     private void OnDisable()
     {
+        if (!Application.isPlaying ) return;
         SetInitialAffectation();
     }
 }

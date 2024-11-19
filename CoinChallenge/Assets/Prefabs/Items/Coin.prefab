@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2045167524134325785}
   - component: {fileID: 8641637015204583990}
   - component: {fileID: 802097558820735832}
+  - component: {fileID: 6329180696800567180}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -71,6 +72,22 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000011920929}
+--- !u!114 &6329180696800567180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727266742050389098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3eba611e7ded1489310e6295b7b5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateX: 0
+  rotateY: 1
+  rotateZ: 0
+  speed: 50
 --- !u!1 &9151103504696781227
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f836424141fd4c6448c87b736feb81e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
