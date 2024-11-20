@@ -7,14 +7,25 @@ public class ScoreManager : MonoBehaviour
 {
 
     public int score;
-    public int goalScoreMin = 10;
+    public int swapMusicScore = 10;
+    public int goalScoreMin = 50;
     public TextMeshProUGUI scoreText;
+
+    public AudioSync other;
 
     public static ScoreManager instance;
 
     public void Awake()
     {
         instance = this;
+    }
+
+    public void Update()
+    {
+        if (score >= swapMusicScore)
+        {
+            AudioSync.instance.scoreSwapOnMinimumScore();
+        }
     }
 
     public void AddScore(int scoreToAdd)

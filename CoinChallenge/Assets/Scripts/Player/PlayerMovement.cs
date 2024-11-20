@@ -5,21 +5,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Run & Turn values")]
     [SerializeField] float maximumSpeed;
     [SerializeField] float rotationSpeed;
 
+    [Header("Jump values")]
     [SerializeField] float jumpSpeed;
     [SerializeField] float jumpHorizontalSpeed;
     [SerializeField] float jumpButtonGracePeriod;
+    [SerializeField] float gravityMultiplier;
 
-    [SerializeField] private Rigidbody rb;
 
+    [Header("Dash values")]
+
+    //[SerializeField] private Rigidbody rb;
+    [Header("Camera reference")]
     [SerializeField] Transform cameraTransform;
 
 
+    [Header("Other values")]
     private Animator animator;
     private CharacterController characterController;
     private float ySpeed;
+
     private float originalStepOffset;
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
@@ -27,9 +35,17 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping;
     private bool isGrounded;
 
+    [SerializeField] private Rigidbody rb;
 
-    //Dash
 
+    //Stomp
+    //[SerializeField] float stompForce = 2.0f;
+
+
+    /*private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }*/
 
     void Start()
     {
@@ -55,7 +71,8 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
         movementDirection.Normalize();
 
-        ySpeed += Physics.gravity.y * Time.deltaTime;
+        float gravity = Physics.gravity.y * gravityMultiplier;
+        ySpeed += gravity * Time.deltaTime;
 
 
         if (movementDirection != Vector3.zero)
@@ -70,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("IsMoving", false);
         }
+
 
         if (isGrounded == false)
         {
@@ -123,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 animator.SetBool("IsFalling", true);
             }
+
+
         }
     }
 
