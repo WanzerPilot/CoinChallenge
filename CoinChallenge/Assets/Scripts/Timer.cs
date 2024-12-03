@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] float remainingTime;
-    public int time;
+    float remainingTime;
+    public int maxTime;
+
+    public float elapseTime {  get { return maxTime - remainingTime; } }
 
     public static Timer instance;
 
     public delegate void OnTimeOut();
     public OnTimeOut onTimeOut;
+
 
     public void Awake()
     {
@@ -28,15 +32,16 @@ public class Timer : MonoBehaviour
 
     public void AddTime(int timeToAdd)
     {
-        time += timeToAdd;
-        remainingTime += 5;
+        remainingTime += timeToAdd;
     }
 
     IEnumerator TimerCorout()
     {
+        remainingTime = maxTime;
         while (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
+            if (remainingTime < 0) remainingTime = 0;
             UpdateTextUI();
             yield return null;
         }
@@ -45,6 +50,16 @@ public class Timer : MonoBehaviour
         {
             onTimeOut();
         }
+        
+        if (remainingTime <= 0) 
+        {
+            SceneManager.LoadScene("GameOverNoTime");
+        }
+    }
+
+    public void StopTimer()
+    {
+        StopAllCoroutines();
     }
 
     void UpdateTextUI()
@@ -52,13 +67,5 @@ public class Timer : MonoBehaviour
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-        if (remainingTime < 0)
-        {
-            remainingTime = 0;
-            // GameOver(); Quand arrive à 0, envoyer la fonction GameOver, qui est encore à faire...
-            timerText.color = Color.red; //S'affiche en rouge quand le timer atteint 0
-        }
     }
-
 }

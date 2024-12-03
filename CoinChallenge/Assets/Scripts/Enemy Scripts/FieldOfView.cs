@@ -20,6 +20,8 @@ public class FieldOfView : MonoBehaviour
     {
         playerRef = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(FOVRoutine());
+
+        AudioSource audioSource = GetComponent<AudioSource>();
     }
 
     private IEnumerator FOVRoutine()

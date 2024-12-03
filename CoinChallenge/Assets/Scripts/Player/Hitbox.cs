@@ -8,7 +8,9 @@ public class Hitbox : MonoBehaviour
     {
         if (other.tag == "HitBox")
         {
-            Destroy(other.transform.parent.gameObject);
+            HealthSystem healthSystem = other.transform.parent.GetComponent<HealthSystem>();
+            healthSystem.SetDamage(10);
+            Debug.Log("Enemy has been killed");
         }
     }
 }

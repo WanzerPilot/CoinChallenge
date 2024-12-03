@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Dash values")]
+
 
     //[SerializeField] private Rigidbody rb;
     [Header("Camera reference")]
@@ -37,6 +39,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
 
+    [Header("Sound Effects")]
+    public AudioClip coinCollected;
+    public AudioSource audioSource;
+
 
     //Stomp
     //[SerializeField] float stompForce = 2.0f;
@@ -52,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
+
+        
     }
 
     void Update()
@@ -71,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
         movementDirection.Normalize();
 
-        float gravity = Physics.gravity.y * gravityMultiplier;
-        ySpeed += gravity * Time.deltaTime;
+        //float gravity = Physics.gravity.y * gravityMultiplier;
+        //ySpeed += gravity * Time.deltaTime;
 
 
         if (movementDirection != Vector3.zero)
@@ -98,6 +106,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Jump();
+    }
+
+    private void FixedUpdate()
+    {
+        float gravity = Physics.gravity.y * gravityMultiplier;
+        ySpeed += gravity * Time.deltaTime;
     }
 
     void Jump()
@@ -156,6 +170,15 @@ public class PlayerMovement : MonoBehaviour
             characterController.Move(velocity);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Coin")
+        {
+            audioSource.PlayOneShot(coinCollected, 0.6f);
+        }
+    }
+
 
     private void OnApplicationFocus(bool focus)
     {

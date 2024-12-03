@@ -57,17 +57,17 @@ Material:
     - _Diff_Opacity: 1
     - _Diff_Rotation: 0
     - _Float: 0.84
-    - _Metallic: 0
+    - _Metallic: 1
     - _QueueControl: 0
     - _QueueOffset: -50
-    - _Smoothness: 0.423
+    - _Smoothness: 0.184
     - _heightMax: 2
     - _heightMin: -1.28
     - _power1: 0.187
     - _power2: 182
     m_Colors:
-    - _Color: {r: 0.9843137, g: 0.7647059, b: 0, a: 1}
-    - _Color_1: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color_1: {r: 0.9843137, g: 0.7647059, b: 0, a: 1}
     - _Diff_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _minmaxIn: {r: 0, g: 1, b: 0, a: 0}
     - _minmaxOut: {r: 0, g: 0.85, b: 0, a: 0}

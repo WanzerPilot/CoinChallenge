@@ -1203,8 +1203,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926083407555590123}
-  - component: {fileID: 7442506475528561712}
   - component: {fileID: 3297865504932826621}
+  - component: {fileID: 588272226550153389}
   m_Layer: 6
   m_Name: FeetCollider
   m_TagString: Untagged
@@ -1227,8 +1227,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4221216884113821401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7442506475528561712
-SphereCollider:
+--- !u!114 &3297865504932826621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6556825902358050216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb4a8f5bd855d04bbd3b2758ef0fe1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &588272226550153389
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1246,20 +1258,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3297865504932826621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6556825902358050216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eb4a8f5bd855d04bbd3b2758ef0fe1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Size: {x: 1, y: 1, z: 0.79}
+  m_Center: {x: 0, y: -0.18, z: 0.06}
 --- !u!1 &6595730576675276761
 GameObject:
   m_ObjectHideFlags: 0

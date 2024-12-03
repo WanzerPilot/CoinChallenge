@@ -7,6 +7,10 @@ public class DataKeeper : MonoBehaviour
 
     public static DataKeeper instance;
 
+    public float elapseTime;
+    public float score;
+    public float killCount;
+
     void Awake()
     {
         if (instance != null && instance != this) 
@@ -20,11 +24,13 @@ public class DataKeeper : MonoBehaviour
     }
     private void Start()
     {
-        Timer.instance.onTimeOut += OnTimeOut;
+
     }
 
-    void OnTimeOut()
+    public void GetPersistentData()
     {
-        Debug.Log("Jeu terminé");
+        elapseTime = Timer.instance.elapseTime;
+        score = ScoreManager.instance.score;
+        killCount = ScoreManager.instance.killMobCount;
     }
 }

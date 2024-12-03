@@ -39,12 +39,6 @@ public class HealthSystem : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-
-    void Update()
-    {
-
-    }
-
     public void SetDamage(int damage)
     {
         currentHealth -= damage;
@@ -65,7 +59,6 @@ public class HealthSystem : MonoBehaviour
 
         if (currentHealth == 0)
         {
-            Debug.Log("Je suis mort");
             iDamageable.OnKilled();
         }
 

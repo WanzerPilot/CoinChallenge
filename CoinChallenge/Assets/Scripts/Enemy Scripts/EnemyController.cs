@@ -1,9 +1,10 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     //Enemy movements
     NavMeshAgent agent;
@@ -15,7 +16,11 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] float attackRange = 1.5f; 
     [SerializeField] int attackDamage = 1;
-   
+
+    public AudioClip attack;
+    public AudioClip attackHit;
+    public AudioClip deathSound;
+    public AudioSource audioSource;
 
     [SerializeField] MeshRenderer rend;
 
@@ -49,7 +54,10 @@ public class EnemyController : MonoBehaviour
         SetNewAffectation(refWaypointGroup);
 
         playerHealthSystem = player.GetComponent<HealthSystem>();
+
+        AudioSource audioSource = GetComponent<AudioSource>();
     }
+
 
     private void OnEnable()
     {
@@ -100,7 +108,9 @@ public class EnemyController : MonoBehaviour
             if (agent.remainingDistance < attackRange)
             {
                 Attack();
-                yield return new WaitForSeconds(1);
+                audioSource.PlayOneShot(attack, 1f);
+                audioSource.PlayOneShot(attackHit, 1f);
+                yield return new WaitForSeconds(2);
             }
 
             yield return null;
@@ -139,5 +149,18 @@ public class EnemyController : MonoBehaviour
         refWaypointGroup = waypointGroup;
         waypointIndex = 0;
         StartCoroutine(PatrolCorout());
+    }
+
+    public void OnDamage(int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnKilled()
+    {
+        audioSource.PlayOneShot(deathSound, 1f);
+        Destroy(gameObject);
+        //animation mort + son
+        ScoreManager.instance.killMobCount++;
     }
 }

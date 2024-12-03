@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level01.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/ResultScene.unity
+    guid: 6acdc7dda829c234abe84870d80dffc9
+  - enabled: 1
+    path: Assets/Scenes/GameOverNoTime.unity
+    guid: 522f8e35ef6d6ef48ae256113a3b26b0
+  - enabled: 1
+    path: Assets/Scenes/GameOverNoHP.unity
+    guid: 69abbbc8c6a7f984d9e3429fef70e8f1
   m_configObjects: {}

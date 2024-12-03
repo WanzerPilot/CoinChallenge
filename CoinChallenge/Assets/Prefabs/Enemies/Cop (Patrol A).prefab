@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34826896876134456}
   - component: {fileID: 8599187636593068087}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HeadDetection
   m_TagString: HitBox
   m_Icon: {fileID: 0}
@@ -52,8 +52,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.59
+  m_Center: {x: 0, y: 1.57, z: 0}
 --- !u!1 &4485318399375643340
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5167266610564215024}
   - component: {fileID: 7089785828897270569}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: 3Dmodel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,8 @@ GameObject:
   - component: {fileID: 3878497267790624691}
   - component: {fileID: 6161411149429467645}
   - component: {fileID: 5706915579591824913}
-  m_Layer: 8
+  - component: {fileID: 3961866846241423172}
+  m_Layer: 0
   m_Name: Cop (Patrol A)
   m_TagString: Enemy
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -322,7 +323,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 1
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -361,6 +362,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3961866846241423172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6119266172570101862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9669c5848df2d1b429ccf898fa2de875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 0
 --- !u!1001 &5229160954318933477
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class ElevatorController : MonoBehaviour
 
     [SerializeField] Transform a, b;
     [SerializeField] float speed = 1f;
-    [SerializeField] Rigidbody rb;
+    [SerializeField] GameObject platform;
     [SerializeField] bool loop = false;
     Vector3 pos;
 
@@ -17,20 +17,20 @@ public class ElevatorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        pos = platform.transform.position;  
         if (playOnAwake)
         StartCoroutine(MoveCorout());
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(pos);
+        platform.transform.position = pos;
     }
 
     public IEnumerator MoveCorout()
     {
-        Vector3 startPos = new Vector3(rb.transform.position.x, a.position.y, rb.transform.position.z);
-        Vector3 targetPos = new Vector3(rb.transform.position.x, b.position.y, rb.transform.position.z);
+        Vector3 startPos = new Vector3(platform.transform.position.x, a.position.y, platform.transform.position.z);
+        Vector3 targetPos = new Vector3(platform.transform.position.x, b.position.y, platform.transform.position.z);
 
         do
         {
@@ -43,9 +43,6 @@ public class ElevatorController : MonoBehaviour
             }
         }
         while (loop);
-
-
-
     }
 
 }

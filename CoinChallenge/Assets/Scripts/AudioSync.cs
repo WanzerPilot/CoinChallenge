@@ -18,7 +18,7 @@ public class AudioSync : MonoBehaviour
     {
         //Lance les deux musiques en même temps, mais pas au même volume
         master.loop = true;
-        master.volume = 1.0f;
+        master.volume = 0.5f;
 
         slave.loop = true;
         slave.volume = 0f;
@@ -36,7 +36,7 @@ public class AudioSync : MonoBehaviour
     public void scoreSwapOnMinimumScore()
     {
         //Fonction pour qu'à un scertain score, la piste change
-            slave.volume = 1.0f;
+            slave.volume = 0.5f;
             master.volume = 0f;
     }
 }
